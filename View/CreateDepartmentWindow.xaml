@@ -1,0 +1,28 @@
+﻿<Window x:Class="WpfApp1.View.CreateDepartmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.ViewModel"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:CreateDepartmentViewModel}"
+        Title="Add Department" Height="150" Width="400">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="4" Text="Department:"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Department.DepartmentName}"/>
+        <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Add Department" Margin="0,10,0,0" Command="{Binding CreateDepartmentCommand}"/>
+    </Grid>
+</Window>

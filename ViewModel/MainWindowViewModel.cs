@@ -150,7 +150,13 @@ namespace WpfApp1.ViewModel
 
         private void CreateDepartment()
         {
+            var department = new Department();
+            var createDepartmentWindow = new CreateDepartmentWindow(department);
 
+            if (createDepartmentWindow.ShowDialog() == true)
+            {
+                Departments.Add(department);
+            }
         }
     }
 }

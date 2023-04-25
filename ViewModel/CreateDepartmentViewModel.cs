@@ -1,55 +1,62 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using WpfApp1.Model;
+using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
 
 namespace WpfApp1.ViewModel
 {
-    public class CreateDepartmentViewModel : INotifyPropertyChanged
+    public class CreateDepartmentViewModel : PropertyChanged
     {
-        private string _departmentName;
-        public string DepartmentName
+        public Window Window { get; set; }
+        public ICommand CreateDepartmentCommand { get; set; }
+        private Department department;
+
+        public Department Department
         {
-            get { return _departmentName; }
+            get { return department; }
             set
             {
-                _departmentName = value;
+                department = value;
                 OnPropertyChanged("DepartmentName");
             }
         }
 
-        private ObservableCollection<string> _rooms;
-        public ObservableCollection<string> Rooms
-        {
-            get { return _rooms; }
-            set
-            {
-                _rooms = value;
-                OnPropertyChanged("Rooms");
-            }
-        }
+        //private ObservableCollection<string> _rooms;
+        //public ObservableCollection<string> Rooms
+        //{
+        //    get { return _rooms; }
+        //    set
+        //    {
+        //        _rooms = value;
+        //        OnPropertyChanged("Rooms");
+        //    }
+        //}
 
-        private ObservableCollection<Employee> _employees;
-        public ObservableCollection<Employee> Employees
-        {
-            get { return _employees; }
-            set
-            {
-                _employees = value;
-                OnPropertyChanged("Employees");
-            }
-        }
+        //private ObservableCollection<Employee> _employees;
+        //public ObservableCollection<Employee> Employees
+        //{
+        //    get { return _employees; }
+        //    set
+        //    {
+        //        _employees = value;
+        //        OnPropertyChanged("Employees");
+        //    }
+        //}
 
-        public CreateDepartmentViewModel(Department department)
+        public CreateDepartmentViewModel(Department department, Window window)
         {
-            DepartmentName = department.DepartmentName;
-            Rooms = new ObservableCollection<string>(department.Rooms);
-            Employees = new ObservableCollection<Employee>(department.Employees);
+            Department = department;
+            //Rooms = new ObservableCollection<string>(department.Rooms);
+            //Employees = new ObservableCollection<Employee>(department.Employees);
+            Window = window;
+            CreateDepartmentCommand = new RelayCommand(CreateDepartment);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
+        private void CreateDepartment()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Window.DialogResult = true;
+            Window.Close();
         }
     }
 }

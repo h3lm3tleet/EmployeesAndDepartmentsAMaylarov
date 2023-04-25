@@ -11,7 +11,16 @@ namespace WpfApp1.Model
 {
     public class Department : INotifyPropertyChanged
     {
-        public string DepartmentName { get; set; }
+        public string departmentName;
+        public string DepartmentName
+        {
+            get { return departmentName; }
+            set
+            {
+                departmentName = value;
+                OnPropertyChanged("DepartmentName");
+            }
+        }
         public string FullName { get; set; }
         public ObservableCollection<string> Rooms { get; set; }
         public ObservableCollection<Employee> Employees { get; set; }

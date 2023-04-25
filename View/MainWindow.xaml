@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.ViewModel"
+        xmlns:view="clr-namespace:WpfApp1.View"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         Title="Directory" Height="450" Width="800">
@@ -32,9 +33,8 @@
             <TabItem Header="Departments">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
-                        <Button Content="Add Employee" Command="{Binding AddEmployeeCommand}" Margin="10"/>
-                        <Button Content="Edit Salary" Command="{Binding EditSalaryCommand}" Margin="10"/>
-                        <Button Content="Edit Position" Command="{Binding EditJobCommand}" Margin="10"/>
+                        <Button Content="Add Department" Command="{Binding CreateDepartmentCommand}" Margin="10"/>
+                        <!--<Button Content="Edit Salary" Command="{Binding EditSalaryCommand}" Margin="10"/>-->
                     </StackPanel>
                     <ListView ItemsSource="{Binding Departments}">
                         <ListView.View>
