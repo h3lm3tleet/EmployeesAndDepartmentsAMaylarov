@@ -9,7 +9,7 @@
         Title="Directory" Height="450" Width="800">
     <Grid>
         <TabControl>
-            <TabItem Header="Workers">
+            <TabItem Header="Employees">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
                         <Button Content="Add Employee" Command="{Binding AddEmployeeCommand}" Margin="10"/>
@@ -30,7 +30,12 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Departments">
-                <Grid>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
+                        <Button Content="Add Employee" Command="{Binding AddEmployeeCommand}" Margin="10"/>
+                        <Button Content="Edit Salary" Command="{Binding EditSalaryCommand}" Margin="10"/>
+                        <Button Content="Edit Position" Command="{Binding EditJobCommand}" Margin="10"/>
+                    </StackPanel>
                     <ListView ItemsSource="{Binding Departments}">
                         <ListView.View>
                             <GridView>
@@ -54,7 +59,7 @@
                                             <ItemsControl ItemsSource="{Binding Employees}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding FirstName}"/>
+                                                        <TextBlock Text="{Binding FullName}"/>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
@@ -64,7 +69,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Grid>
+                </DockPanel>
             </TabItem>
         </TabControl>
     </Grid>
