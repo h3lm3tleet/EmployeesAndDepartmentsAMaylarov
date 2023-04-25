@@ -11,6 +11,7 @@ namespace WpfApp1.Model
         public string position;
         public decimal salary;
         public string department;
+        public string fullName;
 
         public string FirstName
         {
@@ -55,6 +56,15 @@ namespace WpfApp1.Model
             {
                 department = value;
                 OnPropertyChanged("Department");
+            }
+        }
+        public string FullName
+        {
+            get { return firstName + " " + lastName; }
+            set
+            {
+                lastName = value;
+                OnPropertyChanged("FullName");
             }
         }
 

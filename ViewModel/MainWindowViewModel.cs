@@ -49,6 +49,7 @@ namespace WpfApp1.ViewModel
         public ICommand AddEmployeeCommand { get; set; }
         public ICommand EditSalaryCommand { get; set; }
         public ICommand EditJobCommand { get; set; }
+        public ICommand CreateDepartmentCommand { get; set; }
 
         public MainWindowViewModel()
         {
@@ -119,6 +120,7 @@ namespace WpfApp1.ViewModel
             AddEmployeeCommand = new RelayCommand(AddEmployee);
             EditSalaryCommand = new RelayCommand(EditSalary, IsSelectedEmployee);
             EditJobCommand = new RelayCommand(EditJob, IsSelectedEmployee);
+            CreateDepartmentCommand = new RelayCommand(CreateDepartment);
         }
 
         private void AddEmployee()
@@ -145,6 +147,11 @@ namespace WpfApp1.ViewModel
         }
 
         private bool IsSelectedEmployee() => SelectedEmployee != null;
+
+        private void CreateDepartment()
+        {
+
+        }
     }
 }
 
