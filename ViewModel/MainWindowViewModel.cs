@@ -1,7 +1,10 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using WpfApp1.Model;
 using WpfApp1.View;
 
@@ -55,6 +58,8 @@ namespace WpfApp1.ViewModel
         {
             SetCollections();
             SetCommands();
+            SerializeData();
+            DeserializeData();
         }
 
         private void SetCollections()
@@ -115,6 +120,7 @@ namespace WpfApp1.ViewModel
             }
         }
 
+         
         private void SetCommands()
         {
             AddEmployeeCommand = new RelayCommand(AddEmployee);
@@ -156,6 +162,24 @@ namespace WpfApp1.ViewModel
             if (createDepartmentWindow.ShowDialog() == true)
             {
                 Departments.Add(department);
+            }
+        }
+        private void SerializeData()
+        {
+            string filename = "F:\\data.json";
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ObservableCollection<Department>));
+            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            {
+                serializer.WriteObject(fs, Departments);
+            }
+        }
+        private void DeserializeData()
+        {
+            string filename = "F:\\data.json";
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ObservableCollection<Department>));
+            using (FileStream fs = new FileStream(filename, FileMode.Open))
+            {
+                Departments = (ObservableCollection<Department>)serializer.ReadObject(fs);
             }
         }
     }
