@@ -29,12 +29,12 @@
                     </ListView>
                 </DockPanel>
             </TabItem>
-            <TabItem Header="Departmens">
+            <TabItem Header="Departments">
                 <Grid>
                     <ListView ItemsSource="{Binding Departments}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="Название" DisplayMemberBinding="{Binding DepartmentName}" />
                                 <GridViewColumn Header="Кабинеты">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -54,7 +54,7 @@
                                             <ItemsControl ItemsSource="{Binding Employees}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding}" />
+                                                        <TextBlock Text="{Binding FirstName}"/>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>

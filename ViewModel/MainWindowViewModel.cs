@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using WpfApp1.Model;
@@ -10,10 +9,13 @@ namespace WpfApp1.ViewModel
 {
     public class MainWindowViewModel : PropertyChanged
     {
+        private ObservableCollection<Department> _departments;
         private ObservableCollection<Employee> _employees;
+        private Employee _selectedEmployee;
+
         public ObservableCollection<Employee> Employees
         {
-            get { return _employees; }
+            get => _employees;
             set
             {
                 _employees = value;
@@ -21,11 +23,19 @@ namespace WpfApp1.ViewModel
             }
         }
 
+        public ObservableCollection<Department> Departments
+        {
+            get => _departments;
+            set
+            {
+                _departments = value;
+                OnPropertyChanged("Departments");
+            }
+        }
 
-        private Employee _selectedEmployee;
         public Employee SelectedEmployee
         {
-            get { return _selectedEmployee; }
+            get => _selectedEmployee;
             set
             {
                 _selectedEmployee = value;
@@ -42,6 +52,12 @@ namespace WpfApp1.ViewModel
 
         public MainWindowViewModel()
         {
+            SetCollections();
+            SetCommands();
+        }
+
+        private void SetCollections()
+        {
             Employees = new ObservableCollection<Employee>
             {
                 new Employee
@@ -53,7 +69,7 @@ namespace WpfApp1.ViewModel
                     Department = "Отдел продаж"
                 },
                 new Employee
-                { FirstName = "Эцио",
+                {   FirstName = "Эцио",
                     LastName = "Аудиторе",
                     Position = "Программист",
                     Salary = 80000,
@@ -69,6 +85,37 @@ namespace WpfApp1.ViewModel
                 },
             };
 
+            Departments = new ObservableCollection<Department>()
+            {
+                new Department()
+                {
+                    DepartmentName = "Бухгалтерия",
+                    Rooms = new ObservableCollection<string>() { "101", "102", "103" },
+                },
+                new Department()
+                {
+                    DepartmentName = "IT отдел",
+                    Rooms = new ObservableCollection<string>() { "201", "202", "203" },
+                }
+            };
+
+            foreach (var departmens in Departments)
+            {
+                departmens.Employees = new ObservableCollection<Employee>(Employees
+                                    .Where(e => e.Department == departmens.DepartmentName)
+                                    .Select(e => new Employee()
+                                    {
+                                        department = e.department,
+                                        FirstName = e.FirstName,
+                                        LastName = e.LastName,
+                                        Position = e.Position,
+                                        Salary = e.Salary
+                                    }));
+            }
+        }
+
+        private void SetCommands()
+        {
             AddEmployeeCommand = new RelayCommand(AddEmployee);
             EditSalaryCommand = new RelayCommand(EditSalary, IsSelectedEmployee);
             EditJobCommand = new RelayCommand(EditJob, IsSelectedEmployee);
@@ -78,6 +125,7 @@ namespace WpfApp1.ViewModel
         {
             var employee = new Employee();
             var addEmployeeWindow = new AddEmployeeWindow(employee);
+
             if (addEmployeeWindow.ShowDialog() == true)
             {
                 Employees.Add(employee);
@@ -96,10 +144,7 @@ namespace WpfApp1.ViewModel
             editJobWindow.ShowDialog();
         }
 
-        private bool IsSelectedEmployee()
-        {
-            return SelectedEmployee != null;
-        }
+        private bool IsSelectedEmployee() => SelectedEmployee != null;
     }
 }
 

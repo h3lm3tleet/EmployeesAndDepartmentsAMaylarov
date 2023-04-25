@@ -11,6 +11,7 @@ namespace WpfApp1.Model
         public string position;
         public decimal salary;
         public string department;
+
         public string FirstName
         {
             get { return firstName; }
