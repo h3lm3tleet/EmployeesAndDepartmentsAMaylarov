@@ -23,30 +23,32 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        //private ObservableCollection<string> _rooms;
-        //public ObservableCollection<string> Rooms
-        //{
-        //    get { return _rooms; }
-        //    set
-        //    {
-        //        _rooms = value;
-        //        OnPropertyChanged("Rooms");
-        //    }
-        //}
-
-        //private ObservableCollection<Employee> _employees;
-        //public ObservableCollection<Employee> Employees
-        //{
-        //    get { return _employees; }
-        //    set
-        //    {
-        //        _employees = value;
-        //        OnPropertyChanged("Employees");
-        //    }
-        //}
-
-        public CreateDepartmentViewModel(Department department, Window window)
+        private ObservableCollection<string> rooms;
+        public ObservableCollection<string> Rooms
         {
+            get { return rooms; }
+            set
+            {
+                rooms = value;
+                OnPropertyChanged("Rooms");
+            }
+        }
+
+        private ObservableCollection<Employee> employees;
+        public ObservableCollection<Employee> Employees
+        {
+            get { return employees; }
+            set
+            {
+                employees = value;
+                OnPropertyChanged("Employees");
+            }
+        }
+
+        public CreateDepartmentViewModel(Department department,ObservableCollection<Employee> Employees, ObservableCollection<string> Rooms, Window window)
+        {
+            Employees = employees;
+            Rooms = rooms;
             Department = department;
             //Rooms = new ObservableCollection<string>(department.Rooms);
             //Employees = new ObservableCollection<Employee>(department.Employees);

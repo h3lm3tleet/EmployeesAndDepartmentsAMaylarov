@@ -159,11 +159,12 @@ namespace WpfApp1.ViewModel
         private void CreateDepartment()
         {
             var department = new Department();
-            var createDepartmentWindow = new CreateDepartmentWindow(department);
+            var createDepartmentWindow = new CreateDepartmentWindow(department, department.Employees, department.Rooms);
 
             if (createDepartmentWindow.ShowDialog() == true)
             {
                 Departments.Add(department);
+                // TODO: Add to .add another collections
             }
         }
 

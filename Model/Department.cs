@@ -24,6 +24,7 @@ namespace WpfApp1.Model
         public ObservableCollection<string> Rooms { get; set; }
         public ObservableCollection<Employee> Employees { get; set; }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
