@@ -1,8 +1,11 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using WpfApp1.Model;
@@ -53,13 +56,11 @@ namespace WpfApp1.ViewModel
         public ICommand EditSalaryCommand { get; set; }
         public ICommand EditJobCommand { get; set; }
         public ICommand CreateDepartmentCommand { get; set; }
-
+        public ICommand SaveLoadDataCommand { get; set; }
         public MainWindowViewModel()
         {
             SetCollections();
             SetCommands();
-            SerializeData();
-            DeserializeData();
         }
 
         private void SetCollections()
@@ -120,13 +121,14 @@ namespace WpfApp1.ViewModel
             }
         }
 
-         
+
         private void SetCommands()
         {
             AddEmployeeCommand = new RelayCommand(AddEmployee);
             EditSalaryCommand = new RelayCommand(EditSalary, IsSelectedEmployee);
             EditJobCommand = new RelayCommand(EditJob, IsSelectedEmployee);
             CreateDepartmentCommand = new RelayCommand(CreateDepartment);
+            SaveLoadDataCommand = new RelayCommand(SaveLoadDepartments);
         }
 
         private void AddEmployee()
@@ -164,22 +166,26 @@ namespace WpfApp1.ViewModel
                 Departments.Add(department);
             }
         }
+
+        private void SaveLoadDepartments()
+        {
+            var saveLoadData = new SaveLoadDepartmentsWindow(Departments);
+            saveLoadData.ShowDialog();
+        }
+
         private void SerializeData()
         {
             string filename = "F:\\data.json";
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ObservableCollection<Department>));
-            using (FileStream fs = new FileStream(filename, FileMode.Create))
-            {
-                serializer.WriteObject(fs, Departments);
-            }
+            string json = JsonConvert.SerializeObject(Departments);
+            File.WriteAllText(filename, json);
         }
         private void DeserializeData()
         {
             string filename = "F:\\data.json";
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ObservableCollection<Department>));
-            using (FileStream fs = new FileStream(filename, FileMode.Open))
+            if (File.Exists(filename))
             {
-                Departments = (ObservableCollection<Department>)serializer.ReadObject(fs);
+                string json = File.ReadAllText(filename);
+                Departments = JsonConvert.DeserializeObject<ObservableCollection<Department>>(json);
             }
         }
     }

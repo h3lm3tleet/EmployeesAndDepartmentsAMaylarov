@@ -34,6 +34,7 @@
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
                         <Button Content="Add Department" Command="{Binding CreateDepartmentCommand}" Margin="10"/>
+                        <Button Content="SaveLoadDepartments" Command="{Binding SaveLoadDataCommand}" Margin="10"/>
                         <!--<Button Content="Edit Salary" Command="{Binding EditSalaryCommand}" Margin="10"/>-->
                     </StackPanel>
                     <ListView ItemsSource="{Binding Departments}">
@@ -59,7 +60,14 @@
                                             <ItemsControl ItemsSource="{Binding Employees}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding FullName}"/>
+                                                        <TextBlock>
+                                                            <TextBlock.Text>
+                                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                                    <Binding Path="FirstName" />
+                                                                    <Binding Path="LastName" />
+                                                                </MultiBinding>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>

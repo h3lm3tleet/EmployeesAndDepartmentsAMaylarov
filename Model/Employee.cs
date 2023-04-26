@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace WpfApp1.Model
@@ -56,15 +55,6 @@ namespace WpfApp1.Model
             {
                 department = value;
                 OnPropertyChanged("Department");
-            }
-        }
-        public string FullName
-        {
-            get { return firstName + " " + lastName; }
-            set
-            {
-                lastName = value;
-                OnPropertyChanged("FullName");
             }
         }
 

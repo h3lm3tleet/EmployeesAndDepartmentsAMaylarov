@@ -21,7 +21,6 @@ namespace WpfApp1.Model
                 OnPropertyChanged("DepartmentName");
             }
         }
-        public string FullName { get; set; }
         public ObservableCollection<string> Rooms { get; set; }
         public ObservableCollection<Employee> Employees { get; set; }
 
